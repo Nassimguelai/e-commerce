@@ -10,9 +10,22 @@ spring:
     discovery:
       enabled: true
     gateway:
-      mvc:
-        routes:
-          - id: product
-            uri: lb://PRODUCT
-            predicates:
-              - Path=/api/product/**
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "http://localhost:4200"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+            allowCredentials: true
+      routes:
+        - id: product
+          uri: lb://PRODUCT
+          predicates:
+            - Path=/api/product/**
+        - id: product-images
+          uri: lb://PRODUCT
+          predicates:
+            - Path=/product/img/**
+

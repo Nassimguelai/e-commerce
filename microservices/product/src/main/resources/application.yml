@@ -6,3 +6,7 @@ spring:
     active: local
   application:
     name: product
+
+product:
+  image:
+    directory: ${user.dir}\microservices\product\src\main\resources\static\product\img
