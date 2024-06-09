@@ -1,0 +1,22 @@
+.home-container {
+  padding: 16px;
+  ngb-carousel {
+    margin-bottom: 16px;
+  }
+  mat-card {
+    max-width: 100%;
+  }
+  mat-card img {
+    height: 200px;
+    object-fit: cover;
+  }
+  .product-image {
+    width: 300px;
+    height: 200px;
+    object-fit: cover;
+  }
+  .product-price {
+    font-weight: bold;
+    margin-top: 10px;
+  }
+}

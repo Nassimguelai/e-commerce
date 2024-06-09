@@ -5,3 +5,23 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 /* Importing Bootstrap SCSS file. */
 @import 'bootstrap/scss/bootstrap';
+
+.green-snackbar {
+    .mdc-snackbar__surface{
+        background-color: #348355 !important;
+        color: white;
+    }
+    button{
+        color: white !important;
+    }
+}
+
+.red-snackbar {
+    .mdc-snackbar__surface{
+        background-color: #a72c2c !important;
+        color: white;
+    }
+    button{
+        color: white !important;
+    }
+}

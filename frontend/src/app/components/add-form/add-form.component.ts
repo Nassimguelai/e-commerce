@@ -3,10 +3,12 @@ import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angula
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { ProductService } from '../../services/product.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-form',
@@ -16,56 +18,24 @@ import { ProductService } from '../../services/product.service';
     MatInputModule,
     MatFormFieldModule,
     MatButtonModule,
+    MatSnackBarModule,
     MatCardModule,
     MatIconModule,
     CommonModule,
   ],
-  template: `
-    <mat-card>
-      <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
-        <mat-form-field appearance="fill">
-          <mat-label>Product Name</mat-label>
-          <input matInput formControlName="name" placeholder="Enter product name">
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label>Description</mat-label>
-          <textarea matInput formControlName="description" placeholder="Enter product description"></textarea>
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label>Price</mat-label>
-          <input matInput type="number" formControlName="price" placeholder="Enter product price">
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label>Image</mat-label>
-          <button mat-icon-button matPrefix (click)="fileInput.click()">
-            <mat-icon>attach_file</mat-icon>
-          </button>
-          <input type="text" readonly matInput formControlName="image" [value]="fileName" placeholder="Upload product image">
-          <input type="file" hidden #fileInput (change)="handleFileInputChange(fileInput.files)">
-          <mat-error *ngIf="productForm.get('image')?.hasError('required')">Image is required</mat-error>
-        </mat-form-field>
-        <button mat-raised-button color="primary" type="submit" [disabled]="productForm.invalid">Add Product</button>
-      </form>
-    </mat-card>
-  `,
-  styles: [`
-    mat-card {
-      max-width: 400px;
-      margin: 2em auto;
-      padding: 2em;
-    }
-    mat-form-field {
-      width: 100%;
-      margin-bottom: 1em;
-    }
-  `]
+  templateUrl: './add-form.component.html',
+  styleUrls: ['./add-form.component.scss']
 })
 export class AddFormComponent {
   productForm: FormGroup;
   fileName: string = '';
   file_store: FileList | null = null;
 
-  constructor(private productService: ProductService) {
+  constructor(
+    private productService: ProductService,
+    private router: Router,
+    private snackBar: MatSnackBar
+  ) {
     this.productForm = new FormGroup({
       name: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required]),
@@ -99,12 +69,18 @@ export class AddFormComponent {
 
       this.productService.addProduct(formData).subscribe({
         next: (response) => {
-          console.log('Product ajouté avec succès !', response);
+          this.snackBar.open('Product successfully added!', 'Fermer', {
+            duration: 3000,
+            horizontalPosition: 'right',
+            verticalPosition: 'top',
+            panelClass: ['green-snackbar']
+          });
+          this.router.navigate(['/home']);
         },
         error: (error) => {
           console.error('Erreur lors de l\'ajout du produit :', error);
         }
-      });      
+      });
     }
   }
 }

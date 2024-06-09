@@ -26,6 +26,27 @@ public class ProductController {
         return new ResponseEntity<>(Products, HttpStatus.OK);
     }
 
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteProduct(@PathVariable("id") Long id) {
+        productService.deleteProduct(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<ProductEntity> updateProduct(@PathVariable("id") Long id,
+                                                       @RequestParam("name") String name,
+                                                       @RequestParam("description") String description,
+                                                       @RequestParam("price") Double price) {
+        ProductEntity product = new ProductEntity();
+        product.setName(name);
+        product.setDescription(description);
+        product.setPrice(price);
+
+        productService.updateProduct(id, product);
+
+        return new ResponseEntity<>(product, HttpStatus.OK);
+    }
+
     @PostMapping("/add")
     public ResponseEntity<ProductEntity> addProduct(@RequestParam("name") String name,
                                                     @RequestParam("description") String description,

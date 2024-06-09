@@ -1,0 +1,33 @@
+<div class="home-container">
+    <ngb-carousel *ngIf="images.length">
+        <ng-template ngbSlide *ngFor="let image of images">
+            <img [src]="image" class="d-block w-100" alt="carousel image">
+        </ng-template>
+    </ngb-carousel>
+
+    <div *ngIf="products.length > 0; else noProducts">
+        <h2>Liste des produits :</h2>
+        <mat-grid-list cols="4" rowHeight="350px" gutterSize="16px">
+            <mat-grid-tile *ngFor="let product of products">
+                <mat-card>
+                    <mat-card-header>
+                        <mat-card-title>{{ product.name }}</mat-card-title>
+                    </mat-card-header>
+                    <img mat-card-image [src]="getFullImageUrl(product.imgPath)" class="product-image" alt="{{ product.name }}">
+                    <mat-card-content>
+                        <p>{{ product.description }}</p>
+                        <p class="product-price">Price : {{ product.price }}€</p>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <button mat-raised-button color="primary" (click)="openEditDialog(product)">Edit</button>
+                        <button mat-raised-button color="warn" (click)="deleteProduct(product.id)">Delete</button>
+                    </mat-card-actions>
+                </mat-card>
+            </mat-grid-tile>
+        </mat-grid-list>
+
+    </div>
+    <ng-template #noProducts>
+        <h2>No added products</h2>
+    </ng-template>
+</div>

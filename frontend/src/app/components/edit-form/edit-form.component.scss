@@ -1,0 +1,19 @@
+.dialog-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.full-width {
+    width: 100%;
+}
+.dialog-actions {
+    display: flex;
+    justify-content: center;
+}
+.save-button {
+    background-color: #225792;
+    color: white;
+    &:hover {
+        background-color: #225792;
+    }
+}
