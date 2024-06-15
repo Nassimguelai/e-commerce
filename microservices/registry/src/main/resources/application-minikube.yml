@@ -1,0 +1,11 @@
+#Registry configuration
+eureka:
+  instance:
+    hostname: registry
+    preferIpAddress: false
+    lease-renewal-interval-in-seconds: 5
+  client:
+    fetch-registry: false
+    register-with-eureka: false
+    service-url:
+      defaultZone: http://registry:8761/eureka
