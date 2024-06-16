@@ -17,7 +17,7 @@ spec:
           image: postgres:latest
           env:
             - name: POSTGRES_DB
-              value: breizhsport-db
+              value: poc-db
             - name: POSTGRES_USER
               value: admin
             - name: POSTGRES_PASSWORD

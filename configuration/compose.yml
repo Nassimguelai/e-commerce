@@ -50,5 +50,13 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  angular:
+    image: nginx:alpine
+    container_name: angular
+    ports:
+      - "80:80"
+    volumes:
+      - ../frontend/dist/frontend/browser:/usr/share/nginx/html
+
 volumes:
   postgres_data:

@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-poc
+spec:
+  rules:
+  - host: app.local
+    http:
+      paths:
+      - path: /api
+        pathType: Prefix
+        backend:
+          service:
+            name: gateway
+            port:
+              number: 8888
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: angular
+            port:
+              number: 80

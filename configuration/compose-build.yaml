@@ -46,6 +46,15 @@ services:
       POSTGRES_PASSWORD: admin
     volumes:
       - postgres_data:/var/lib/postgresql/data
+  
+  angular:
+    build:
+      context: ../frontend/
+      dockerfile: ./Dockerfile
+    image: poc-frontend:0.0.1
+    container_name: angular
+    ports:
+      - "80:80"
 
 volumes:
   postgres_data:
